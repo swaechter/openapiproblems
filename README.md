@@ -4,6 +4,8 @@
 
 This repository contains a collection of several Micronaut bugs and shortcomings. It started after a discussion on Twitter: https://twitter.com/swaechter_ch/status/1406215247120175107
 
+The example code for several bugs can be found in the `src/main/java` directory of this repository. You can also start the example and access the OpenAPI at http://localhost:8080/swagger-ui/index.html
+
 ## Bug 0: I can't use Micronaut with a Java 11 anymore (On Linux and Windows)
 
 I re-generated the OpenAPI project and receive the following error with Java 11 (Java 1.8 works), so I am not sure if related to Javax/Jakarta change or nullability annotation). With Java 1.8 it works:
