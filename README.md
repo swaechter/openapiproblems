@@ -186,7 +186,7 @@ Expected result:
 
 ![](images/Bug8_1.png)
 
-## Nitpick 9:"
+## Nitpick 9: Make use of inheritance in @Schema
 
 It would be great if we could inherit Schema attributes from abstract classes (For more information see bug 6). I am not sure if there are technical issues with this wish.
 
