@@ -3,7 +3,6 @@ package ch.swaechter.bug1;
 import io.micronaut.core.annotation.Introspected;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.time.Instant;
 import java.util.UUID;
 
 @Introspected
@@ -15,15 +14,15 @@ public class UuidDto {
 
     private UUID brokenUuid;
 
-    @Schema(description = "Broken time")
-    private Instant time;
+    private UuidNestedObject nestedObject;
 
     public UuidDto() {
     }
 
-    public UuidDto(UUID workingUuid, UUID brokenUuid) {
+    public UuidDto(UUID workingUuid, UUID brokenUuid, UuidNestedObject nestedObject) {
         this.workingUuid = workingUuid;
         this.brokenUuid = brokenUuid;
+        this.nestedObject = nestedObject;
     }
 
     public UUID getWorkingUuid() {
@@ -43,11 +42,11 @@ public class UuidDto {
         this.brokenUuid = brokenUuid;
     }
 
-    public Instant getTime() {
-        return time;
+    public UuidNestedObject getNestedObject() {
+        return nestedObject;
     }
 
-    public void setTime(Instant time) {
-        this.time = time;
+    public void setNestedObject(UuidNestedObject nestedObject) {
+        this.nestedObject = nestedObject;
     }
 }
