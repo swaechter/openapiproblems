@@ -6,7 +6,7 @@ This repository contains a collection of several Micronaut bugs and shortcomings
 
 The example code for several bugs can be found in the `src/main/java` directory of this repository. You can also start the example and access the OpenAPI at http://localhost:8080/swagger-ui/index.html
 
-## Bug 0: I can't use Micronaut with a Java 11 anymore (On Linux and Windows)
+## Bug 0: ~~I can't use Micronaut with a Java 11 anymore (On Linux and Windows)~~ Fixed
 
 I re-generated the OpenAPI project and receive the following error with Java 11 (Java 1.8 works), so I am not sure if related to Javax/Jakarta change or nullability annotation). With Java 1.8 it works:
 
@@ -82,7 +82,7 @@ Expected result:
 
 * I can trigger the endpoint without a request payload
 
-## Bug 3: Enum types cannot be defined as beans
+## Bug 3: ~~Enum types cannot be defined as beans~~ Fixed
 
 In earlier MN 2 versions we used enums, e.g. for the frequency of the backup (Weekday or daily). This doesn't work anymore and generates the following error:
 
@@ -92,7 +92,7 @@ Issue is known: https://github.com/micronaut-projects/micronaut-core/issues/5611
 
 **Note**: In the example, the `@Schema` annotation for `BackupFrequencyDto` is commented out, so someone can build and run the application. Re-enable the annotation to reproduce the error
 
-## Bug 4: Enum support is broken
+## Bug 4: ~~Enum support is broken~~ Fixed
 
 Before we encountered bug 3, the generation of enum was broken. It didn't return the possible string values, but was an empty object:
 
@@ -176,7 +176,11 @@ Expected result:
 
 * Using CompletedFileUpload leads to the correct content type expected by Micronaut without having to specify it manually via `produces`
 
-## Nitpick 8: Custom merged OpenAPI file is not sorted
+## Bug 8: Wrong UUID schema type
+
+TODO
+
+## Nitpick 9: Custom merged OpenAPI file is not sorted
 
 When defining an additional custom OpenAPI file that is merged into the OpenAPI output, the endpoints/tags are not included into the sorting (Maybe the sorting is done earlier in the process). We describe the `/login` JWT endpoint via tag `Authentication` and the tag lands at the end.
 
@@ -186,9 +190,10 @@ Expected result:
 
 * All tags, even manually merged ones, are alphabetically sorted
 
-![](images/Bug8_1.png)
+![](images/Bug9_1.png)
 
-## Nitpick 9: Make use of inheritance in @Schema
+
+## Nitpick 10: Make use of inheritance in @Schema
 
 It would be great if we could inherit Schema attributes from abstract classes (For more information see bug 6). I am not sure if there are technical issues with this wish.
 
