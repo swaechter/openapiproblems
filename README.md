@@ -178,7 +178,117 @@ Expected result:
 
 ## Bug 8: Wrong UUID schema type
 
-TODO
+Let's say we have a `Greeting` class with a `message` that will be sent from `senderId` to `receiverId`. A schema would look like this:
+
+```java
+@Schema(description = "Represent a greeting between a sender and a reciever")
+public class Greeting {
+
+    @Schema(description = "Greeting message the receiver will get")
+    private String message;
+
+    @Schema(description = "ID of the sender")
+    private UUID senderId;
+
+    // Schema is annotated on the getter method bellow
+    private UUID receiverId;
+
+    public Greeting() {
+    }
+
+    public Greeting(String message, UUID senderId, UUID receiverId) {
+        this.message = message;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public UUID getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(UUID senderId) {
+        this.senderId = senderId;
+    }
+
+    @Schema(description = "ID of the receiver")
+    public UUID getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(UUID receiverId) {
+        this.receiverId = receiverId;
+    }
+}
+```
+
+The OpenAPI schema should look like this:
+
+```
+    Greeting:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Greeting message the receiver will get
+        senderId:
+          type: string
+          description: ID of the sender
+          format: uuid
+        receiverId:
+          type: string
+          description: ID of the receiver
+          format: uuid
+      description: Represent a greeting between a sender and a reciever
+```
+
+Instead we have two problem:
+
+1.) I have to annotate `@Schema` on the getter-method and not on the class attribute. Annotating `@Schema` for `receiverId` on the class attribute will generate this broken schema:
+
+```
+    Greeting:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Greeting message the receiver will get
+        senderId:
+          type: string
+          description: ID of the sender
+          format: uuid
+        receiverId:
+          $ref: '#/components/schemas/UUID'
+      description: Represent a greeting between a sender and a reciever
+```
+
+So the workaround was to annotate all UUID `@Schema` on the getter-method and not the class attribite (All other attributes where always class-attribute based)
+
+2.) Since Micronaut 3.0.0-RC1 this workaround doesn't work anymore. Switching from 3.0.0-M5 to 3.0.0-RC1 will generate the following broken schema:
+
+```
+    Greeting:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Greeting message the receiver will get
+        senderId:
+          $ref: '#/components/schemas/UUID'
+        receiverId:
+          $ref: '#/components/schemas/UUID'
+```
+
+And in the Swagger UI:
+
+![](images/Bug8_1.png)
 
 ## Nitpick 9: Custom merged OpenAPI file is not sorted
 
