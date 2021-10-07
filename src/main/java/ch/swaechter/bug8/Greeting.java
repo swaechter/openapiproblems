@@ -1,10 +1,12 @@
 package ch.swaechter.bug8;
 
+import io.micronaut.core.annotation.Introspected;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.UUID;
 
-@Schema(description = "Represent a greeting between a sender and a reciever")
+@Introspected
+@Schema(description = "Represent a greeting between a sender and a receiver")
 public class Greeting {
 
     @Schema(description = "Greeting message the receiver will get")

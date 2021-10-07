@@ -55,7 +55,7 @@ dependencies {
     implementation("io.micronaut:micronaut-validation")
 }
 ```
-## Bug 1: Some @Schema annotations for object have to be used on fields, others on methods
+## Bug 1: ~~Some @Schema annotations for object have to be used on fields, others on methods~~ Fixed
 
 Some `@Schema` annotation like for `UUID` have to be used on fields (and only fields), but other can only be used on getter methods (**TODO: Look for example**). When used on a getter method, MN thinks it's an object and not a string of format UUID. This can be seen in the POST example:
 
@@ -70,7 +70,7 @@ Expected result:
 * I can use all @Schema annotation on fields or methods (I prefer fields. IMO I think it's more readable. Getter only is ok too, but mixing is bad - we do this at work at the moment and people don't understand the reason).
 * `UUID` doesn't show up as type
 
-## Bug 2: @Post endpoint with no parameters generates a wrong object parameter
+## Bug 2: ~~@Post endpoint with no parameters generates a wrong object parameter~~ Fixed
 
 A `POST` endpoint without a (request? response? request AND response?) body generates an empty request object. Starting a backup via `POST` (Rest terminology: Create a new backup. The backup configuration is known to the backend):
 
@@ -106,7 +106,7 @@ Expected result:
 
 * Proper enum values like in MN 2.0/2.1/(2.2?)
 
-## Bug 5: Inheritance via anyOf (and other) doesn't work on getter/fields, but only the class
+## Bug 5: ~~Inheritance via anyOf (and other) doesn't work on getter/fields, but only the class~~ Fixed
 
 Like mentioned in bug 4 or https://github.com/micronaut-projects/micronaut-openapi/issues/483 , a schema with inheritance like anyOf (Object has to be of type X, Y, Z...) still doesn't work if not annotated on the class. This works for me, but is related to issue1: Where to annotate (Now we have 3 locations to annotate: Field, method, class)
 
@@ -122,7 +122,7 @@ Expected result:
 
 ![](images/Bug5_2.png)
 
-## Bug 6: Returning StreamedFile does not change the OpenAPI
+## Bug 6: ~~Returning StreamedFile does not change the OpenAPI~~ Fixed
 
 See issue https://github.com/micronaut-projects/micronaut-openapi/issues/441
 
@@ -181,7 +181,7 @@ Expected result:
 Let's say we have a `Greeting` class with a `message` that will be sent from `senderId` to `receiverId`. A schema would look like this:
 
 ```java
-@Schema(description = "Represent a greeting between a sender and a reciever")
+@Schema(description = "Represent a greeting between a sender and a receiver")
 public class Greeting {
 
     @Schema(description = "Greeting message the receiver will get")
@@ -246,7 +246,7 @@ The OpenAPI schema should look like this:
           type: string
           description: ID of the receiver
           format: uuid
-      description: Represent a greeting between a sender and a reciever
+      description: Represent a greeting between a sender and a receiver
 ```
 
 Instead we have two problem:
@@ -266,7 +266,7 @@ Instead we have two problem:
           format: uuid
         receiverId:
           $ref: '#/components/schemas/UUID'
-      description: Represent a greeting between a sender and a reciever
+      description: Represent a greeting between a sender and a receiver
 ```
 
 So the workaround was to annotate all UUID `@Schema` on the getter-method and not the class attribite (All other attributes where always class-attribute based)
