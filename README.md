@@ -176,7 +176,7 @@ Expected result:
 
 * Using CompletedFileUpload leads to the correct content type expected by Micronaut without having to specify it manually via `produces`
 
-## Bug 8: Wrong UUID schema type
+## Bug 8: ~~Wrong UUID schema type~~ Fixed
 
 Let's say we have a `Greeting` class with a `message` that will be sent from `senderId` to `receiverId`. A schema would look like this:
 
