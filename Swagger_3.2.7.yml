@@ -6,7 +6,7 @@ paths:
   /bug1/uuid:
     post:
       tags:
-        - Bug1
+      - Bug1
       operationId: getExampleUuidDto
       parameters: []
       requestBody:
@@ -25,7 +25,7 @@ paths:
   /bug2/backup:
     post:
       tags:
-        - Bug2
+      - Bug2
       operationId: startBackup
       parameters: []
       requestBody:
@@ -40,7 +40,7 @@ paths:
   /bug3/backup:
     get:
       tags:
-        - Bug3
+      - Bug3
       operationId: getBackupSettings
       parameters: []
       responses:
@@ -53,7 +53,7 @@ paths:
   /bug5/owner:
     get:
       tags:
-        - Bug5
+      - Bug5
       operationId: getOwner
       parameters: []
       responses:
@@ -66,7 +66,7 @@ paths:
   /bug6/file:
     get:
       tags:
-        - Bug6
+      - Bug6
       operationId: downloadWaterFile
       parameters: []
       responses:
@@ -82,7 +82,7 @@ paths:
   /bug7/file:
     post:
       tags:
-        - Bug7
+      - Bug7
       operationId: redownloadFile
       parameters: []
       requestBody:
@@ -108,7 +108,7 @@ paths:
   /bug8/greeting:
     post:
       tags:
-        - Bug8
+      - Bug8
       operationId: sendGreeting
       parameters: []
       requestBody:
@@ -127,18 +127,18 @@ components:
       description: Backup frequency (Daily or on a specific weekday) or null if backup
         is not active
       enum:
-        - DAILY
-        - MONDAY
-        - TUESDAY
-        - WEDNESDAY
-        - THURSDAY
-        - FRIDAY
-        - SATURDAY
-        - SUNDAY
+      - DAILY
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
     BackupTimeDto:
       required:
-        - hour
-        - minute
+      - hour
+      - minute
       type: object
       properties:
         hour:
@@ -169,7 +169,7 @@ components:
           type: string
           description: ID of the receiver
           format: uuid
-      description: Represent a greeting between a sender and a reciever
+      description: Represent a greeting between a sender and a receiver
     Owner:
       type: object
       properties:
