@@ -29,7 +29,7 @@ public class BackupTimeDto {
         this.minute = minute;
     }
 
-    @Schema(description = "Hour of the day in the European format (E.g. 19:30)")
+    @Schema(description = "Hour of the day in the European format (E.g. 19:30)", required = true)
     public Integer getHour() {
         return hour;
     }
@@ -38,7 +38,7 @@ public class BackupTimeDto {
         this.hour = hour;
     }
 
-    @Schema(description = "Minutes of the hour")
+    @Schema(description = "Minutes of the hour", required = true)
     public Integer getMinute() {
         return minute;
     }

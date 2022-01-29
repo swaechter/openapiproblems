@@ -28,12 +28,6 @@ paths:
       - Bug2
       operationId: startBackup
       parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-        required: true
       responses:
         "200":
           description: startBackup 200 response
@@ -144,12 +138,16 @@ components:
         hour:
           maximum: 23
           minimum: 0
+          required:
+          - "true"
           type: integer
           description: Hour of the day in the European format (E.g. 19:30)
           format: int32
         minute:
           maximum: 59
           minimum: 0
+          required:
+          - "true"
           type: integer
           description: Minutes of the hour
           format: int32
