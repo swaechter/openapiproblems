@@ -109,6 +109,19 @@ paths:
       responses:
         "200":
           description: sendGreeting 200 response
+  /bug9/greeting:
+    get:
+      tags:
+      - Bug9
+      summary: Return a friendly greeting.
+      description: Return a friendly greeting.
+      operationId: getGreeting
+      parameters: []
+      responses:
+        "200":
+          description: A friendly greeting
+        "500":
+          description: Internal server error
 components:
   schemas:
     BackupFrequencyDto:

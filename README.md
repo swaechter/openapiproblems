@@ -290,7 +290,31 @@ And in the Swagger UI:
 
 ![](images/Bug8_1.png)
 
-## Nitpick 9: Custom merged OpenAPI file is not sorted
+## Bug 9: Schema return type is ignored
+
+In Micronaut 3.3.0 with Micronaut OpenAPI 4.0.0, the return type of a controller action in combination with a custom
+response description is ignored. This leads to an unusable OpenAPI file that can't be used by clients. Code:
+
+```java
+/**
+ * Return a friendly greeting.
+ *
+ * @return A friendly greeting
+ */
+@Get("/greeting")
+@Tag(name = "Bug9")
+@ApiResponse(responseCode = "200", description = "A friendly greeting")
+@ApiResponse(responseCode = "500", description = "Internal server error")
+public Greeting getGreeting() {
+    return new Greeting("A friendly greeting!", UUID.randomUUID(), UUID.randomUUID());
+}
+```
+
+On the left the working version in Micronaut 3.2.7 and on the right the dropped fragment in 3.3.0 + Micronaut OpenAPI 4.0.0:
+
+![](images/Bug9_1.png)
+
+## Nitpick 1: Custom merged OpenAPI file is not sorted
 
 When defining an additional custom OpenAPI file that is merged into the OpenAPI output, the endpoints/tags are not included into the sorting (Maybe the sorting is done earlier in the process). We describe the `/login` JWT endpoint via tag `Authentication` and the tag lands at the end.
 
@@ -300,10 +324,9 @@ Expected result:
 
 * All tags, even manually merged ones, are alphabetically sorted
 
-![](images/Bug9_1.png)
+![](images/Nitpick1_1.png)
 
-
-## Nitpick 10: Make use of inheritance in @Schema
+## Nitpick 2: Make use of inheritance in @Schema
 
 It would be great if we could inherit Schema attributes from abstract classes (For more information see bug 6). I am not sure if there are technical issues with this wish.
 
