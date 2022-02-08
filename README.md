@@ -312,6 +312,10 @@ public Greeting getGreeting() {
 
 On the left the working version in Micronaut 3.2.7 and on the right the dropped fragment in 3.3.0 + Micronaut OpenAPI 4.0.0:
 
+## Bug 10: Broken schema description and nullable
+
+See package `bug10` or the following issue:
+
 ![](images/Bug9_1.png)
 
 ## Nitpick 1: Custom merged OpenAPI file is not sorted
