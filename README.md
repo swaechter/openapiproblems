@@ -318,6 +318,21 @@ See package `bug10` or the following issue:
 
 ![](images/Bug9_1.png)
 
+## Bug 11: The new requiredMode is not yet supported
+
+For requiring a value in the JSON part, one could use `required`. This was deprecated and one should use `requiredMode`,
+which isn't supported at the moment. The old code works:
+
+![](images/Bug11_1.png)
+
+Replacing the deprecated `required` value to `requiredMode`:
+
+![](images/Bug11_2.png)
+
+Leads to dropping the required field:
+
+![](images/Bug11_3.png)
+
 ## Nitpick 1: Custom merged OpenAPI file is not sorted
 
 When defining an additional custom OpenAPI file that is merged into the OpenAPI output, the endpoints/tags are not included into the sorting (Maybe the sorting is done earlier in the process). We describe the `/login` JWT endpoint via tag `Authentication` and the tag lands at the end.

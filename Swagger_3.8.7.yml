@@ -7,10 +7,7 @@ paths:
     get:
       tags:
       - Email
-      summary: Get the email output location.
-      description: Get the email output location.
       operationId: getEmailOutputLocation
-      parameters: []
       responses:
         "200":
           description: Email output location
@@ -26,10 +23,7 @@ paths:
     get:
       tags:
       - Email
-      summary: Get the email settings.
-      description: Get the email settings.
       operationId: getEmailSettings
-      parameters: []
       responses:
         "200":
           description: Email settings
@@ -46,7 +40,6 @@ paths:
       tags:
       - Bug1
       operationId: getExampleUuidDto
-      parameters: []
       requestBody:
         content:
           application/json:
@@ -60,12 +53,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UuidDto'
+  /bug11/backup:
+    get:
+      tags:
+      - Bug11
+      operationId: getBackupSettings11
+      responses:
+        "200":
+          description: getBackupSettings11 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadBackupSettingsExDto'
   /bug2/backup:
     post:
       tags:
       - Bug2
       operationId: startBackup
-      parameters: []
       responses:
         "200":
           description: startBackup 200 response
@@ -74,7 +78,6 @@ paths:
       tags:
       - Bug3
       operationId: getBackupSettings
-      parameters: []
       responses:
         "200":
           description: getBackupSettings 200 response
@@ -87,7 +90,6 @@ paths:
       tags:
       - Bug5
       operationId: getOwner
-      parameters: []
       responses:
         "200":
           description: getOwner 200 response
@@ -100,7 +102,6 @@ paths:
       tags:
       - Bug6
       operationId: downloadWaterFile
-      parameters: []
       responses:
         "200":
           description: Download the same file again
@@ -116,7 +117,6 @@ paths:
       tags:
       - Bug7
       operationId: redownloadFile
-      parameters: []
       requestBody:
         content:
           multipart/form-data:
@@ -142,7 +142,6 @@ paths:
       tags:
       - Bug8
       operationId: sendGreeting
-      parameters: []
       requestBody:
         content:
           application/json:
@@ -156,10 +155,7 @@ paths:
     get:
       tags:
       - Bug9
-      summary: Return a friendly greeting.
-      description: Return a friendly greeting.
       operationId: getGreeting
-      parameters: []
       responses:
         "200":
           description: A friendly greeting
@@ -172,9 +168,21 @@ paths:
 components:
   schemas:
     BackupFrequencyDto:
-      type: string
+      type: object
       description: Backup frequency (Daily or on a specific weekday) or null if backup
         is not active
+      enum:
+      - DAILY
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    BackupFrequencyExDto:
+      type: object
+      description: Schema that represents the frequency of the backup
       enum:
       - DAILY
       - MONDAY
@@ -193,27 +201,43 @@ components:
         hour:
           maximum: 23
           minimum: 0
-          required:
-          - "true"
           type: integer
           description: Hour of the day in the European format (E.g. 19:30)
           format: int32
         minute:
           maximum: 59
           minimum: 0
-          required:
-          - "true"
           type: integer
           description: Minutes of the hour
           format: int32
-      description: Backup time in European format (E.g. 19:30) or null if backup is
-        not active
+      description: Schema represents the backup time in the European time format (E.g.
+        19:30)
+    Bike:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the bike
+          format: uuid
+        name:
+          type: string
+          description: Name of the bike
+      description: "Bike, a custom vehicle type"
+    Car:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the car
+          format: uuid
+        name:
+          type: string
+          description: Name of the car
+      description: "Car, a custom vehicle type"
     EmailSendProtocolDto:
-      required:
-      - "true"
-      type: string
-      description: Protocol used for the connection or null if email sending is disabled
-      nullable: true
+      type: object
+      description: Schema that represents the possible email protocols for sending
+        emails
       enum:
       - SMTP
       - SMTP_SSL
@@ -240,7 +264,12 @@ components:
           type: string
           description: Name of the owner
         vehicle:
-          $ref: '#/components/schemas/Vehicle'
+          allOf:
+          - $ref: '#/components/schemas/Vehicle'
+          - description: Vehicle of the owner
+            anyOf:
+            - $ref: '#/components/schemas/Car'
+            - $ref: '#/components/schemas/Bike'
       description: Owner that has a vehicle (Car or bike)
     ReadBackupSettingsDto:
       type: object
@@ -250,9 +279,17 @@ components:
           description: "Flag that indicates whether the backup is active or not. If\
             \ set to false, all other values are null"
         backupFrequency:
-          $ref: '#/components/schemas/BackupFrequencyDto'
+          allOf:
+          - $ref: '#/components/schemas/BackupFrequencyDto'
+          - type: object
+            description: Backup frequency (Daily or on a specific weekday) or null
+              if backup is not active
         backupTime:
-          $ref: '#/components/schemas/BackupTimeDto'
+          allOf:
+          - $ref: '#/components/schemas/BackupTimeDto'
+          - type: object
+            description: Backup time in European format (E.g. 19:30) or null if backup
+              is not active
         username:
           type: string
           description: Username for the SMB backup share or null if backup is not
@@ -270,13 +307,35 @@ components:
           description: UNC formatted backup path or null if backup is not active.
             The backup will be saved into the directory
       description: Schema that represents the current backup settings
+    ReadBackupSettingsExDto:
+      # Required block here is now missing. Something like
+      # required:
+      # - requiredBackupFrequency
+      type: object
+      properties:
+        requiredBackupFrequency:
+          allOf:
+          - $ref: '#/components/schemas/BackupFrequencyExDto'
+          - type: object
+            description: Required backup frequency
+        optionalBackupFrequency:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/BackupFrequencyExDto'
+          - type: object
+            description: Optional backup frequency. The key/value be omitted in the
+              JSON result.
+      description: Schema that represents the current backup settings
     ReadEmailOutputLocationDto:
       required:
       - protocol
       type: object
       properties:
         protocol:
-          $ref: '#/components/schemas/EmailSendProtocolDto'
+          allOf:
+          - $ref: '#/components/schemas/EmailSendProtocolDto'
+          - type: object
+            description: Protocol used for the connection
       description: Schema that represents an existing email output location
     ReadEmailSettingsDto:
       required:
@@ -290,43 +349,36 @@ components:
       type: object
       properties:
         active:
-          required:
-          - "true"
           type: boolean
           description: "Flag that indicates whether the email sending is active or\
             \ not. If set to false, all other values are null"
         hostname:
-          required:
-          - "true"
           type: string
           description: Hostname or IP of the email server or null if email sending
             is disabled
           nullable: true
         port:
-          required:
-          - "true"
           type: integer
           description: Port of the email server or null if email sending is disabled
           format: int32
           nullable: true
         protocol:
-          $ref: '#/components/schemas/EmailSendProtocolDto'
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/EmailSendProtocolDto'
+          - type: object
+            description: Protocol used for the connection or null if email sending
+              is disabled
         username:
-          required:
-          - "true"
           type: string
           description: Email username to login or null if email sending is disabled
           nullable: true
         plaintextPassword:
-          required:
-          - "true"
           type: string
           description: Plaintext password for the email user to login in or null if
             email sending is disabled
           nullable: true
         senderEmail:
-          required:
-          - "true"
           type: string
           description: Sender email address that is used to send emails or null if
             email sending is disabled
