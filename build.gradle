@@ -1,6 +1,6 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("io.micronaut.application") version "3.2.0"
+    id("io.micronaut.application") version "3.7.2"
 }
 
 version = "0.1"
@@ -51,3 +51,5 @@ tasks.withType(JavaCompile) {
     options.fork = true
     options.forkOptions.jvmArgs << '-Dmicronaut.openapi.views.spec=swagger-ui.enabled=true,swagger-ui.theme=flattop'
 }
+
+graalvmNative.toolchainDetection = false
