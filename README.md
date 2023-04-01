@@ -335,6 +335,10 @@ Leads to dropping the required field:
 
 ![](images/Bug11_3.png)
 
+## Bug 12: Schemas using $ref shouldn't specify the type
+
+A schema that references other schemas shouldn't specify their type via type. For more information see https://github.com/micronaut-projects/micronaut-openapi/issues/963
+
 ## Nitpick 1: ~~Custom merged OpenAPI file is not sorted~~
 
 Fixed in https://github.com/micronaut-projects/micronaut-openapi/pull/968

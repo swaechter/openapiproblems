@@ -69,6 +69,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReadBackupSettingsDto11'
+  /bug12/backup:
+    get:
+      tags:
+      - Bug12
+      operationId: getBackup
+      responses:
+        "200":
+          description: getBackup 200 response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackupDto12'
   /bug2/backup:
     post:
       tags:
@@ -173,6 +185,20 @@ paths:
           description: Internal server error
 components:
   schemas:
+    BackupDto12:
+      type: object
+      properties:
+        location:
+          allOf:
+          - $ref: '#/components/schemas/BackupSubObject12'
+          - type: object
+            description: Referenced class. $ref shouldn't specify the type of BackupSubObject12
+        state:
+          allOf:
+          - $ref: '#/components/schemas/BackupSubEnum12'
+          - type: object
+            description: Referenced enum. $ref shouldn't specify the type of BackupSubEnum12
+      description: Schema to represent a backup
     BackupFrequencyDto11:
       type: string
       description: Schema that represents the frequency of the backup
@@ -198,6 +224,19 @@ components:
       - FRIDAY
       - SATURDAY
       - SUNDAY
+    BackupSubEnum12:
+      type: string
+      description: State of the backup
+      enum:
+      - WORKING
+      - FAILED
+    BackupSubObject12:
+      type: object
+      properties:
+        backupLocation:
+          type: string
+          description: Location of the backup
+      description: Schema to describe the backup location
     BackupTimeDto3_4:
       required:
       - hour
