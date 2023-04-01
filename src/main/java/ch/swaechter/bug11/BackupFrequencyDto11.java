@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Introspected
 @Schema(description = "Schema that represents the frequency of the backup")
-public enum BackupFrequencyExDto {
+public enum BackupFrequencyDto11 {
     DAILY,
     MONDAY,
     TUESDAY,

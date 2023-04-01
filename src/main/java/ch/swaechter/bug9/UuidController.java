@@ -20,7 +20,7 @@ public class UuidController {
     @Tag(name = "Bug9")
     @ApiResponse(responseCode = "200", description = "A friendly greeting")
     @ApiResponse(responseCode = "500", description = "Internal server error")
-    public Greeting getGreeting() {
-        return new Greeting("A friendly greeting!", UUID.randomUUID(), UUID.randomUUID());
+    public Greeting9 getGreeting() {
+        return new Greeting9("A friendly greeting!", UUID.randomUUID(), UUID.randomUUID());
     }
 }

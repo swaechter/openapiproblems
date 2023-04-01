@@ -9,11 +9,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class BackupController {
 
     @Get("/backup")
-    public ReadBackupSettingsDto getBackupSettings() {
-        ReadBackupSettingsDto readBackupSettingsDto = new ReadBackupSettingsDto();
+    public ReadBackupSettingsDto3_4 getBackupSettings() {
+        ReadBackupSettingsDto3_4 readBackupSettingsDto = new ReadBackupSettingsDto3_4();
         readBackupSettingsDto.setActive(true);
-        readBackupSettingsDto.setBackupFrequency(BackupFrequencyDto.DAILY);
-        readBackupSettingsDto.setBackupTime(new BackupTimeDto(20, 15));
+        readBackupSettingsDto.setBackupFrequency(BackupFrequencyDto3_4.DAILY);
+        readBackupSettingsDto.setBackupTime(new BackupTimeDto3_4(20, 15));
         readBackupSettingsDto.setUsername("foobar");
         readBackupSettingsDto.setPlaintextPassword("muchsecurepw");
         readBackupSettingsDto.setDomain("acme");

@@ -1,7 +1,7 @@
 package ch.swaechter.bug10;
 
-import ch.swaechter.bug10.dto.ReadEmailOutputLocationDto;
-import ch.swaechter.bug10.dto.ReadEmailSettingsDto;
+import ch.swaechter.bug10.dto.ReadEmailOutputLocationDto10;
+import ch.swaechter.bug10.dto.ReadEmailSettingsDto10;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.validation.Validated;
@@ -30,7 +30,7 @@ public class EmailController {
     @ApiResponse(responseCode = "200", description = "Email settings")
     @ApiResponse(responseCode = "401", description = "Not authenticated")
     @ApiResponse(responseCode = "500", description = "Internal server error")
-    public ReadEmailSettingsDto getEmailSettings() throws Exception {
+    public ReadEmailSettingsDto10 getEmailSettings() throws Exception {
         return null;
     }
 
@@ -46,7 +46,7 @@ public class EmailController {
     @ApiResponse(responseCode = "200", description = "Email output location")
     @ApiResponse(responseCode = "401", description = "Not authenticated")
     @ApiResponse(responseCode = "500", description = "Internal server error")
-    public ReadEmailOutputLocationDto getEmailOutputLocation() throws Exception {
+    public ReadEmailOutputLocationDto10 getEmailOutputLocation() throws Exception {
         return null;
     }
 }

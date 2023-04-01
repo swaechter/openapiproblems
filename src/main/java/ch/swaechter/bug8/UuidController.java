@@ -17,7 +17,7 @@ public class UuidController {
 
     @Post("/greeting")
     @Tag(name = "Bug8")
-    public void sendGreeting(@Valid @Body Greeting greeting) {
+    public void sendGreeting(@Valid @Body Greeting8 greeting) {
         logger.info(greeting.getSenderId() + " is sending the following greeting to " + greeting.getReceiverId() + ": " + greeting.getMessage());
     }
 }

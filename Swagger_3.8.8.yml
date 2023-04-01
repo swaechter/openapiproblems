@@ -7,6 +7,8 @@ paths:
     get:
       tags:
       - Email
+      summary: Get the email output location.
+      description: Get the email output location.
       operationId: getEmailOutputLocation
       responses:
         "200":
@@ -14,7 +16,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReadEmailOutputLocationDto'
+                $ref: '#/components/schemas/ReadEmailOutputLocationDto10'
         "401":
           description: Not authenticated
         "500":
@@ -23,6 +25,8 @@ paths:
     get:
       tags:
       - Email
+      summary: Get the email settings.
+      description: Get the email settings.
       operationId: getEmailSettings
       responses:
         "200":
@@ -30,7 +34,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReadEmailSettingsDto'
+                $ref: '#/components/schemas/ReadEmailSettingsDto10'
         "401":
           description: Not authenticated
         "500":
@@ -64,7 +68,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReadBackupSettingsExDto'
+                $ref: '#/components/schemas/ReadBackupSettingsDto11'
   /bug2/backup:
     post:
       tags:
@@ -84,7 +88,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReadBackupSettingsDto'
+                $ref: '#/components/schemas/ReadBackupSettingsDto3_4'
   /bug5/owner:
     get:
       tags:
@@ -146,7 +150,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Greeting'
+              $ref: '#/components/schemas/Greeting8'
         required: true
       responses:
         "200":
@@ -155,6 +159,8 @@ paths:
     get:
       tags:
       - Bug9
+      summary: Return a friendly greeting.
+      description: Return a friendly greeting.
       operationId: getGreeting
       responses:
         "200":
@@ -162,13 +168,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Greeting'
+                $ref: '#/components/schemas/Greeting9'
         "500":
           description: Internal server error
 components:
   schemas:
-    BackupFrequencyDto:
-      type: object
+    BackupFrequencyDto11:
+      type: string
+      description: Schema that represents the frequency of the backup
+      enum:
+      - DAILY
+      - MONDAY
+      - TUESDAY
+      - WEDNESDAY
+      - THURSDAY
+      - FRIDAY
+      - SATURDAY
+      - SUNDAY
+    BackupFrequencyDto3_4:
+      type: string
       description: Backup frequency (Daily or on a specific weekday) or null if backup
         is not active
       enum:
@@ -180,19 +198,7 @@ components:
       - FRIDAY
       - SATURDAY
       - SUNDAY
-    BackupFrequencyExDto:
-      type: object
-      description: Schema that represents the frequency of the backup
-      enum:
-      - DAILY
-      - MONDAY
-      - TUESDAY
-      - WEDNESDAY
-      - THURSDAY
-      - FRIDAY
-      - SATURDAY
-      - SUNDAY
-    BackupTimeDto:
+    BackupTimeDto3_4:
       required:
       - hour
       - minute
@@ -234,15 +240,30 @@ components:
           type: string
           description: Name of the car
       description: "Car, a custom vehicle type"
-    EmailSendProtocolDto:
-      type: object
+    EmailSendProtocolDto10:
+      type: string
       description: Schema that represents the possible email protocols for sending
         emails
       enum:
       - SMTP
       - SMTP_SSL
       - SMTP_STARTTLS
-    Greeting:
+    Greeting8:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Greeting message the receiver will get
+        senderId:
+          type: string
+          description: ID of the sender
+          format: uuid
+        receiverId:
+          type: string
+          description: ID of the receiver
+          format: uuid
+      description: Represent a greeting between a sender and a receiver
+    Greeting9:
       type: object
       properties:
         message:
@@ -271,7 +292,25 @@ components:
             - $ref: '#/components/schemas/Car'
             - $ref: '#/components/schemas/Bike'
       description: Owner that has a vehicle (Car or bike)
-    ReadBackupSettingsDto:
+    ReadBackupSettingsDto11:
+      required:
+      - requiredBackupFrequency
+      type: object
+      properties:
+        requiredBackupFrequency:
+          allOf:
+          - $ref: '#/components/schemas/BackupFrequencyDto11'
+          - type: object
+            description: Required backup frequency
+        optionalBackupFrequency:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/BackupFrequencyDto11'
+          - type: object
+            description: Optional backup frequency. The key/value be omitted in the
+              JSON result.
+      description: Schema that represents the current backup settings
+    ReadBackupSettingsDto3_4:
       type: object
       properties:
         active:
@@ -280,13 +319,13 @@ components:
             \ set to false, all other values are null"
         backupFrequency:
           allOf:
-          - $ref: '#/components/schemas/BackupFrequencyDto'
+          - $ref: '#/components/schemas/BackupFrequencyDto3_4'
           - type: object
             description: Backup frequency (Daily or on a specific weekday) or null
               if backup is not active
         backupTime:
           allOf:
-          - $ref: '#/components/schemas/BackupTimeDto'
+          - $ref: '#/components/schemas/BackupTimeDto3_4'
           - type: object
             description: Backup time in European format (E.g. 19:30) or null if backup
               is not active
@@ -307,36 +346,18 @@ components:
           description: UNC formatted backup path or null if backup is not active.
             The backup will be saved into the directory
       description: Schema that represents the current backup settings
-    ReadBackupSettingsExDto:
-      required:
-      - requiredBackupFrequency
-      type: object
-      properties:
-        requiredBackupFrequency:
-          allOf:
-          - $ref: '#/components/schemas/BackupFrequencyExDto'
-          - type: object
-            description: Required backup frequency
-        optionalBackupFrequency:
-          nullable: true
-          allOf:
-          - $ref: '#/components/schemas/BackupFrequencyExDto'
-          - type: object
-            description: Optional backup frequency. The key/value be omitted in the
-              JSON result.
-      description: Schema that represents the current backup settings
-    ReadEmailOutputLocationDto:
+    ReadEmailOutputLocationDto10:
       required:
       - protocol
       type: object
       properties:
         protocol:
           allOf:
-          - $ref: '#/components/schemas/EmailSendProtocolDto'
+          - $ref: '#/components/schemas/EmailSendProtocolDto10'
           - type: object
             description: Protocol used for the connection
       description: Schema that represents an existing email output location
-    ReadEmailSettingsDto:
+    ReadEmailSettingsDto10:
       required:
       - active
       - hostname
@@ -364,7 +385,7 @@ components:
         protocol:
           nullable: true
           allOf:
-          - $ref: '#/components/schemas/EmailSendProtocolDto'
+          - $ref: '#/components/schemas/EmailSendProtocolDto10'
           - type: object
             description: Protocol used for the connection or null if email sending
               is disabled

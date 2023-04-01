@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Introspected
 @Schema(description = "Schema that represents the possible email protocols for sending emails")
-public enum EmailSendProtocolDto {
+public enum EmailSendProtocolDto10 {
     SMTP,
     SMTP_SSL,
     SMTP_STARTTLS

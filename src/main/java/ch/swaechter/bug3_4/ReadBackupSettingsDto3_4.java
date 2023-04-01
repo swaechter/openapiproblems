@@ -5,13 +5,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Introspected
 @Schema(description = "Schema that represents the current backup settings")
-public class ReadBackupSettingsDto {
+public class ReadBackupSettingsDto3_4 {
 
     private Boolean active;
 
-    private BackupFrequencyDto backupFrequency;
+    private BackupFrequencyDto3_4 backupFrequency;
 
-    private BackupTimeDto backupTime;
+    private BackupTimeDto3_4 backupTime;
 
     private String username;
 
@@ -21,7 +21,7 @@ public class ReadBackupSettingsDto {
 
     private String uncPath;
 
-    public ReadBackupSettingsDto() {
+    public ReadBackupSettingsDto3_4() {
     }
 
     @Schema(description = "Flag that indicates whether the backup is active or not. If set to false, all other values are null")
@@ -34,20 +34,20 @@ public class ReadBackupSettingsDto {
     }
 
     @Schema(description = "Backup frequency (Daily or on a specific weekday) or null if backup is not active")
-    public BackupFrequencyDto getBackupFrequency() {
+    public BackupFrequencyDto3_4 getBackupFrequency() {
         return backupFrequency;
     }
 
-    public void setBackupFrequency(BackupFrequencyDto backupFrequency) {
+    public void setBackupFrequency(BackupFrequencyDto3_4 backupFrequency) {
         this.backupFrequency = backupFrequency;
     }
 
     @Schema(description = "Backup time in European format (E.g. 19:30) or null if backup is not active")
-    public BackupTimeDto getBackupTime() {
+    public BackupTimeDto3_4 getBackupTime() {
         return backupTime;
     }
 
-    public void setBackupTime(BackupTimeDto backupTimeDto) {
+    public void setBackupTime(BackupTimeDto3_4 backupTimeDto) {
         this.backupTime = backupTimeDto;
     }
 

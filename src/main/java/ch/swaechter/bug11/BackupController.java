@@ -9,9 +9,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class BackupController {
 
     @Get("/backup")
-    public ReadBackupSettingsExDto getBackupSettings11() {
-        ReadBackupSettingsExDto readBackupSettingsDto = new ReadBackupSettingsExDto();
-        readBackupSettingsDto.setRequiredBackupFrequency(BackupFrequencyExDto.MONDAY);
+    public ReadBackupSettingsDto11 getBackupSettings11() {
+        ReadBackupSettingsDto11 readBackupSettingsDto = new ReadBackupSettingsDto11();
+        readBackupSettingsDto.setRequiredBackupFrequency(BackupFrequencyDto11.MONDAY);
         readBackupSettingsDto.setOptionalBackupFrequency(null);
         return readBackupSettingsDto;
     }

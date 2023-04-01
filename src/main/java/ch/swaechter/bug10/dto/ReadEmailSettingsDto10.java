@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Introspected
 @Schema(description = "Schema that represents the current email settings")
-public record ReadEmailSettingsDto(
+public record ReadEmailSettingsDto10(
 
         @Schema(description = "Flag that indicates whether the email sending is active or not. If set to false, all other values are null", required = true)
         Boolean active,
@@ -17,7 +17,7 @@ public record ReadEmailSettingsDto(
         Integer port,
 
         @Schema(description = "Protocol used for the connection or null if email sending is disabled", required = true, nullable = true)
-        EmailSendProtocolDto protocol,
+        EmailSendProtocolDto10 protocol,
 
         @Schema(description = "Email username to login or null if email sending is disabled", required = true, nullable = true)
         String username,

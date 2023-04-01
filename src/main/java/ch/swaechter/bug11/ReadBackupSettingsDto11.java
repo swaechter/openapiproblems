@@ -5,32 +5,30 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Introspected
 @Schema(description = "Schema that represents the current backup settings")
-public class ReadBackupSettingsExDto {
+public class ReadBackupSettingsDto11 {
 
-    //@Schema(description = "Required backup frequency", required = true, nullable = false)
     @Schema(description = "Required backup frequency", requiredMode = Schema.RequiredMode.REQUIRED, nullable = false)
-    private BackupFrequencyExDto requiredBackupFrequency;
+    private BackupFrequencyDto11 requiredBackupFrequency;
 
-    //@Schema(description = "Optional backup frequency. The key/value be omitted in the JSON result.", required = false, nullable = true)
     @Schema(description = "Optional backup frequency. The key/value be omitted in the JSON result.", requiredMode = Schema.RequiredMode.NOT_REQUIRED, nullable = true)
-    private BackupFrequencyExDto optionalBackupFrequency;
+    private BackupFrequencyDto11 optionalBackupFrequency;
 
-    public ReadBackupSettingsExDto() {
+    public ReadBackupSettingsDto11() {
     }
 
-    public BackupFrequencyExDto getRequiredBackupFrequency() {
+    public BackupFrequencyDto11 getRequiredBackupFrequency() {
         return requiredBackupFrequency;
     }
 
-    public void setRequiredBackupFrequency(BackupFrequencyExDto requiredBackupFrequency) {
+    public void setRequiredBackupFrequency(BackupFrequencyDto11 requiredBackupFrequency) {
         this.requiredBackupFrequency = requiredBackupFrequency;
     }
 
-    public BackupFrequencyExDto getOptionalBackupFrequency() {
+    public BackupFrequencyDto11 getOptionalBackupFrequency() {
         return optionalBackupFrequency;
     }
 
-    public void setOptionalBackupFrequency(BackupFrequencyExDto optionalBackupFrequency) {
+    public void setOptionalBackupFrequency(BackupFrequencyDto11 optionalBackupFrequency) {
         this.optionalBackupFrequency = optionalBackupFrequency;
     }
 }

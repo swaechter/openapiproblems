@@ -290,7 +290,7 @@ And in the Swagger UI:
 
 ![](images/Bug8_1.png)
 
-## Bug 9: Schema return type is ignored
+## Bug 9: ~~Schema return type is ignored~~
 
 In Micronaut 3.3.0 with Micronaut OpenAPI 4.0.0, the return type of a controller action in combination with a custom
 response description is ignored. This leads to an unusable OpenAPI file that can't be used by clients. Code:
@@ -318,7 +318,9 @@ See package `bug10` or the following issue:
 
 ![](images/Bug9_1.png)
 
-## Bug 11: The new requiredMode is not yet supported
+## Bug 11: ~~The new requiredMode is not yet supported~~
+
+Fixed in https://github.com/micronaut-projects/micronaut-openapi/pull/968
 
 For requiring a value in the JSON part, one could use `required`. This was deprecated and one should use `requiredMode`,
 which isn't supported at the moment. The old code works:
@@ -333,7 +335,9 @@ Leads to dropping the required field:
 
 ![](images/Bug11_3.png)
 
-## Nitpick 1: Custom merged OpenAPI file is not sorted
+## Nitpick 1: ~~Custom merged OpenAPI file is not sorted~~
+
+Fixed in https://github.com/micronaut-projects/micronaut-openapi/pull/968
 
 When defining an additional custom OpenAPI file that is merged into the OpenAPI output, the endpoints/tags are not included into the sorting (Maybe the sorting is done earlier in the process). We describe the `/login` JWT endpoint via tag `Authentication` and the tag lands at the end.
 
@@ -348,11 +352,3 @@ Expected result:
 ## Nitpick 2: Make use of inheritance in @Schema
 
 It would be great if we could inherit Schema attributes from abstract classes (For more information see bug 6). I am not sure if there are technical issues with this wish.
-
-## Other bugs
-
-There are a few other bugs I encountered during my bachelor thesis that made the developer experience harder:
-
-### Non OpenAPI related bug: 
-
-Not OpenAPI related, but **a really dangerous API misunderstanding that can lead to data corruption**: https://github.com/micronaut-projects/micronaut-core/issues/2836

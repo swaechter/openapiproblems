@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Introspected
 @Schema(description = "Schema represents the backup time in the European time format (E.g. 19:30)")
-public class BackupTimeDto {
+public class BackupTimeDto3_4 {
 
     @NotNull
     @Min(0)
@@ -21,10 +21,10 @@ public class BackupTimeDto {
     @Max(59)
     private Integer minute;
 
-    public BackupTimeDto() {
+    public BackupTimeDto3_4() {
     }
 
-    public BackupTimeDto(Integer hour, Integer minute) {
+    public BackupTimeDto3_4(Integer hour, Integer minute) {
         this.hour = hour;
         this.minute = minute;
     }

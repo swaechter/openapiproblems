@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Introspected
 @Schema(description = "Represent a greeting between a sender and a receiver")
-public class Greeting {
+public class Greeting8 {
 
     @Schema(description = "Greeting message the receiver will get")
     private String message;
@@ -18,10 +18,10 @@ public class Greeting {
     // Schema is annotated on the getter method bellow
     private UUID receiverId;
 
-    public Greeting() {
+    public Greeting8() {
     }
 
-    public Greeting(String message, UUID senderId, UUID receiverId) {
+    public Greeting8(String message, UUID senderId, UUID receiverId) {
         this.message = message;
         this.senderId = senderId;
         this.receiverId = receiverId;
