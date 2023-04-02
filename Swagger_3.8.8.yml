@@ -186,6 +186,9 @@ paths:
 components:
   schemas:
     BackupDto12:
+      required:
+      - location
+      - state
       type: object
       properties:
         location:
